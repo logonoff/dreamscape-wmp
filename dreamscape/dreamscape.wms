@@ -1,7 +1,7 @@
-<!-- thanks to Jonathan S. Schneider's skin "Schneider's Eleven" for the template -->
+<!-- thanks to Jon Schneider's skin "Schneider's Eleven" for the template -->
 <theme title="dreamscape"
        author="logonoff"
-       authorVersion="1.05"
+       authorVersion="1.06"
        copyright="2020">
 
     <!-- === The Main UI === -->
@@ -14,10 +14,10 @@
           resizable="false"
           titlebar="false"
           ontimer="refreshTrackPositionDisplay();"
-          onfocus="JScript: function() {this.backgroundImage = 'bg_focus.png'; }"
-          onblur="JScript: function() {this.backgroundImage = 'bg.png'; }"
-          timerinterval="50"
-          scriptFile="dreamscape.js" >
+          onFocus="JScript:this.backgroundImage='bg_focus.png';"
+          onBlur="JScript:this.backgroundImage='bg.png';"
+          timerinterval="10"
+          scriptFile="dreamscape.js">
 
         <!-- === Additional Event Wire-ups === -->
         <player modeChange="updateShuffleRepeat();"
@@ -25,10 +25,6 @@
 
         <!-- === Dynamic Text Fields === -->
         <!-- The values of these fields get updated on-the-fly from the methods in the Javascript file. -->
-
-        <!-- Note: The size of the positionAndDurationText field gets updated from the refreshAll method
-            in the Javascript file (to deal with the problem that can occur when the value is too large to display
-            in the field for tracks that are an hour long or more.) -->
         <text id="titleText"
               top="20"
               left="139"
@@ -40,7 +36,7 @@
               fontsmoothing="true"
               fontFace="Segoe UI Bold"
               onMouseOver="scrollIfNecessary(this)"
-              onMouseOut="JScript:this.scrolling = false;" />
+              onMouseOut="JScript:this.scrolling=false;" />
 
         <text id="artistText"
               top="65"
@@ -53,7 +49,7 @@
               fontsmoothing="true"
               fontFace="Segoe UI Bold"
               onMouseOver="scrollIfNecessary(this)"
-              onMouseOut="JScript:this.scrolling = false;" />
+              onMouseOut="JScript:this.scrolling=false;" />
 
         <text id="albumText"
               top="92"
@@ -66,7 +62,7 @@
               fontsmoothing="true"
               fontFace="Segoe UI"
               onMouseOver="scrollIfNecessary(this)"
-              onMouseOut="JScript:this.scrolling = false;" />
+              onMouseOut="JScript:this.scrolling=false;" />
 
         <text id="bitrateAndFilesizeText"
               top="124"
@@ -109,8 +105,8 @@
                     foregroundImage="progressbar_segment.png"
                     value="wmpprop:player.controls.currentPosition"
                     onDragEnd="player.controls.currentPosition=value;"
-                    onMouseUp = "player.controls.currentPosition = positionSlider.value;"
-                    thumbimage = "progressbar_segment.png" />
+                    onMouseUp="player.controls.currentPosition=positionSlider.value;"
+                    thumbimage="progressbar_segment.png" />
         </subview>
 
         <!-- === Album Art === -->
@@ -125,21 +121,22 @@
         <!-- === 'Titlebar' buttons at the top right of the UI: Close, Minimize, FullMode === -->
         <buttonGroup mappingImage="bg_map.png"
                      hoverImage="bg_hover.png"
-                     downImage="bg_down.png">
+                     downImage="bg_down.png"
+                     disabledImage="bg_down.png">
 
-            <buttonelement mappingColor="#00ff00"
+            <buttonElement mappingColor="#00ff00"
                            upToolTip="res://-/RT_STRING/#1811"
                            onClick="view.minimize();"
                            accName="Minimize"
                            accKeyboardShortcut="" />
 
-            <buttonelement mappingColor="#eaff00"
+            <buttonElement mappingColor="#eaff00"
                            upToolTip="res://-/RT_STRING/#1813"
                            onClick="view.returnToMediaCenter();"
                            accName="res://wmploc/RT_STRING/#3904"
                            accKeyboardShortcut="" />
 
-            <buttonelement mappingColor="#e81123"
+            <buttonElement mappingColor="#e81123"
                            upToolTip="res://-/RT_STRING/#1812"
                            onClick="view.close();"
                            accName="res://-/RT_STRING/#1812" />
@@ -147,35 +144,6 @@
 
 
         <!-- === Main set of controls along the bottom of the UI: Play, etc. === -->
-    
-        <!-- Shuffle Enabled button: Shown only when the 'shuffle' option is currently enabled. -->
-        <buttonGroup id="shuffleEnabledButtonGroup"
-                     mappingImage="bg_map.png"
-                     image="enabled.png"
-                     hoverImage="enabled_hover.png"
-                     downImage="enabled_down.png"
-                     visible="true"
-                     zIndex="3">
-
-            <buttonElement id="shuffleEnabledButton"
-                           mappingColor="#ff002a"
-                           upToolTip="Turn Shuffle Off"
-                           onClick="player.settings.setMode('shuffle', false);" />
-        </buttonGroup>
-
-        <!-- Repeat Enabled button: Shown only when the 'repeat' option is currently enabled. -->
-        <buttonGroup id="repeatEnabledButtonGroup"
-                     mappingImage="bg_map.png"
-                     image="enabled.png"
-                     hoverImage="enabled_hover.png"
-                     downImage="enabled_down.png"
-                     visible="true">
-
-            <buttonElement id="repeatEnabledButton"
-                           mappingColor="#0040ff"
-                           upToolTip="Turn Repeat Off"
-                           onClick="player.settings.setMode('loop', false);" />
-        </buttonGroup>
 
         <!-- The transportsButtonGroup includes all of the buttons along the bottom in their default/disabled
         state: shuffle, repeat, previous track, play, next track, mute. -->
@@ -183,11 +151,12 @@
                      mappingImage="bg_map.png"
                      hoverImage="bg_hover.png"
                      downImage="bg_down.png"
+                     disabledImage="bg_down.png"
                      zIndex="1">
 
             <buttonElement id="shuffleButton"
                            mappingColor="#ff002a"
-                           upToolTip="Turn Shuffle On"
+                           upToolTip="res://-/RT_STRING/#1814"
                            onClick="player.settings.setMode('shuffle',true);" />
 
             <prevElement mappingColor="#ffbf00" />
@@ -200,43 +169,76 @@
 
             <buttonElement id="repeatButton"
                            mappingColor="#0040ff"
-                           upToolTip="Turn Repeat On"
+                           upToolTip="res://-/RT_STRING/#1816"
                            onClick="player.settings.setMode('loop', true);" />
 
             <buttonElement id="muteButton"
                            mappingColor="#6200ff"
-                           upToolTip="Turn Mute On"
+                           upToolTip="res://-/RT_STRING/#1807"
                            onClick="jscript:player.settings.mute=true; jscript:muteEnabledButtonGroup.visible=true;" />
-
         </buttonGroup>
     
+        <!-- Shuffle Enabled button: Shown only when the 'shuffle' option is currently enabled. -->
+        <buttonGroup id="shuffleEnabledButtonGroup"
+                     mappingImage="bg_map.png"
+                     image="enabled.png"
+                     hoverImage="enabled_hover.png"
+                     downImage="enabled_down.png"
+                     disabledImage="enabled_down.png"
+                     visible="true"
+                     zIndex="3">
+
+            <buttonElement id="shuffleEnabledButton"
+                           mappingColor="#ff002a"
+                           upToolTip="res://-/RT_STRING/#1815"
+                           onClick="player.settings.setMode('shuffle', false);" />
+        </buttonGroup>
+
+        <!-- Repeat Enabled button: Shown only when the 'repeat' option is currently enabled. -->
+        <buttonGroup id="repeatEnabledButtonGroup"
+                     mappingImage="bg_map.png"
+                     image="enabled.png"
+                     hoverImage="enabled_hover.png"
+                     downImage="enabled_down.png"
+                     disabledImage="enabled_down.png"
+                     visible="true"
+                     zIndex="3">
+
+            <buttonElement id="repeatEnabledButton"
+                           mappingColor="#0040ff"
+                           upToolTip="res://-/RT_STRING/#1817"
+                           onClick="player.settings.setMode('loop', false);" />
+        </buttonGroup>
+
         <!-- Mute Enabled button: Shown only when the sound output is currently muted. -->
         <buttonGroup id="muteEnabledButtonGroup"
                      mappingImage="bg_map.png"
                      image="vol0.png"
                      hoverImage="vol0_hover.png"
-                     downImage="vol0.png"
-                     visible="false"
+                     downImage="vol0_down.png"
+                     disabledImage="vol0_down.png"
+                     visible="wmpenabled:player.settings.mute"
                      zIndex="4">
                 
                 <buttonElement id="muteEnabledButton"
                                mappingColor="#6200ff"
-                               upToolTip="Turn Mute Off"
+                               upToolTip="res://-/RT_STRING/#1808"
                                onClick="jscript:player.settings.mute=false; jscript:muteEnabledButtonGroup.visible=false;" />
         </buttonGroup>
       
-        <!-- One bar of volume - shown at range 0-32 -->
-        <buttonGroup id="volOneGroup"
+      <!-- One bar of volume - shown at range 0-32 -->
+       <buttonGroup id="volOneGroup"
                      mappingImage="bg_map.png"
                      image="vol1.png"
                      hoverImage="vol1_hover.png"
-                     downImage="vol1.png"
+                     downImage="vol1_down.png"
+                     disabledImage="vol1_down.png"
                      visible="false"
                      zIndex="2">
                 
             <buttonElement id="muteButton1"
                            mappingColor="#6200ff"
-                           upToolTip="Turn Mute On"
+                           upToolTip="res://-/RT_STRING/#1807"
                            onClick="jscript:player.settings.mute=true; jscript:muteEnabledButtonGroup.visible=true;" />
         </buttonGroup>
 
@@ -245,13 +247,14 @@
                      mappingImage="bg_map.png"
                      image="vol2.png"
                      hoverImage="vol2_hover.png"
-                     downImage="vol2.png"
+                     downImage="vol2_down.png"
+                     disabledImage="vol2_down.png"
                      visible="false"
                      zIndex="2">
                 
             <buttonElement id="muteButton2"
                            mappingColor="#6200ff"
-                           upToolTip="Turn Mute On"
+                           upToolTip="res://-/RT_STRING/#1807"
                            onClick="jscript:player.settings.mute=true; jscript:muteEnabledButtonGroup.visible=true;" />
         </buttonGroup>
 
@@ -265,10 +268,10 @@
                       thumbImage="vol_segment.png"
                       direction="horizontal"
                       slide="true"
-                      borderSize="5"
-                      toolTip="Volume"
+                      upToolTip="res://-/RT_STRING/#1810"
+                      ondragbegin="player.settings.mute=false;"
                       value="wmpprop:player.settings.volume"
-                      value_onchange="updateVolume();jscript:player.settings.volume=value;" />
+                      value_onchange="updateVolume(); jscript:player.settings.volume=value;" />
 
         <!-- Pause button: Shown only when the track is playing -->
         <buttonGroup id="pauseButtonGroup"
@@ -276,6 +279,7 @@
                      image="enabled.png"
                      hoverImage="enabled_hover.png"
                      downImage="enabled_down.png"
+                     disabledImage="enabled_down.png"
                      visible="wmpenabled:player.controls.pause"
                      zIndex="3">
 
@@ -284,7 +288,7 @@
                           width="29"
                           height="32"
                           mappingcolor="#a6ff00" />
-
         </buttonGroup>
+
     </view>
 </theme>
