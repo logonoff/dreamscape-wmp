@@ -1,30 +1,25 @@
-# Schneider's Eleven
-
+# dreamscape
 Unobtrusive skin for Windows Media Player featuring album art
-
-http://www.jonschneider.com/SchneidersEleven.html
 
 I created this skin to be a small and unobtrusive music player.  It is designed to unobtrusively sit in the corner of the screen, with no distracting scrolling text, animated graphics, or frequently-changing text fields (aside from the display of the time index within the current track).  It always shows the current album, artist, and track name for at-a-glance viewing.  
 
-The play control interface is a reduced-size version of the the standard Windows Media Player 11 play control interface (thus the name "Schneider's Eleven").
+The play control interface and metadata display is inspired by Groove Music. 
 
-![Schneider's Eleven skin image](http://www.jonschneider.com/skins/images/SchneidersEleven.png)
+![dreamscape skin image](https://i.imgur.com/aYpk7Ie.png)
 
 
 ## Feature List  
-
-- Small size: 340px wide, 135px high
+- Relatively small size: 560px wide, 230px high
 - Supports audio playback only (no video support)
 - Displayed at all times for at-a-glance viewing: Author, Track Title, Album,
     track bitrate, track filesize, track length, track current time index
 - Available controls: Play/Pause, Previous Track, Next Track, Stop, Mute on/off,
     Shuffle on/off, Repeat on/off, Track position slider, Volume slider
 - Displays album art if available, correctly sized/scaled
-- Designed for Windows Media Player 11; also works with Windows Media Player versions 12 and 10
+- Designed for Windows Media Player 12 (WMP 11 & 10 untested, should work)
 
 ## Installation Instructions 
-
-Download the .wmz file from the /deploy folder, and double-click it.
+Download the .wmz file from the [releases](https://github.com/logonoff/wmp-dreamscape/releases/), and double-click it.
 
 
 ## Packaging Instructions
@@ -32,28 +27,23 @@ Download the .wmz file from the /deploy folder, and double-click it.
 1. Copy all of the project assets into a single folder:
   - The .js file;
   - The .wms file;
-  - All .bmp files from the Images folder.
-1. Create a .zip archive with all of those files;
-1. Rename the archive file extension from .zip to .wmz.
-
-
+  - All .png files
+2. Create a .zip archive with all of those files;
+3. Rename the archive file extension from `.zip` to `.wmz`.
 
 ## Known Issues
-
 - In Windows Media Player 10, there's a graphical glitch at the left edge of the volume slider, where that portion of the slider appears to be empty instead of filled.
 - The file size displayed for large .wav files is much smaller than it should be. (In particular, one 25.7 MB .wav file in my collection is reported by WMP 11's getItemInfo("FileSize") API as "124306" (bytes); this may be a WMP bug?)
 - The "Next Track" button can't be held down to act as a "Fast Forward" button, as it does in the regular Windows Media Player 11 UI.
 - There is no thumb graphic on hover for the track position slider, as there is in the regular Windows Media Player 11 UI.
 
 ## Credits/Thanks 
-
-- My wife Melissa.  I love you very very much!
+- Jon Schneider's wife Melissa. I bet he loves her very very much!
 - Microsoft, for the free Windows Media Player, the nice Windows Media Player 11 UI, and the equally nice skinning API.  XML, Javascript, and image files -- easy!
 - Richard Kohut, aka Reeses2150, who created the "Basic6" skin; the TrackInfo pane of Basic6 was the initial inspiration for the Schneider's Eleven design.  Thanks Richard!
 
 
 ## Version History 
-
 v1.0 -- September 9, 2007
 Initial release.
 
@@ -80,3 +70,8 @@ v1.04 -- November 11, 2007
 - When a track is being played directly from a CD, "n/a" is now displayed in the 
   File size / bitrate field.  (Previously, size and bitrate values of 0 would be  displayed.)
 - If the playing track has no information on the author, but does have information   on the composer, the composer is now displayed.  (Previously, "Unspecified" would be displayed.)
+
+v1.05 -- November 6, 2020
+- Initial release
+- Increased size of player (is now 560x230)
+- Rename to dreamscape (because this is obviously no longer Schneider's)
