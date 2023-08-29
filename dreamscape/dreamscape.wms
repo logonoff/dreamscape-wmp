@@ -1,8 +1,8 @@
 <!-- thanks to Jon Schneider's skin "Schneider's Eleven" for the template -->
 <theme title="dreamscape"
        author="logonoff"
-       authorVersion="1.06"
-       copyright="2020">
+       authorVersion="1.07"
+       copyright="2023">
 
     <!-- === The Main UI === -->
     <view id="mainView"
@@ -14,9 +14,7 @@
           resizable="false"
           titlebar="false"
           ontimer="refreshTrackPositionDisplay();"
-          onFocus="JScript:this.backgroundImage='bg_focus.png';"
-          onBlur="JScript:this.backgroundImage='bg.png';"
-          timerinterval="10"
+          timerinterval="100"
           scriptFile="dreamscape.js">
 
         <!-- === Additional Event Wire-ups === -->
@@ -26,25 +24,12 @@
         <!-- === Dynamic Text Fields === -->
         <!-- The values of these fields get updated on-the-fly from the methods in the Javascript file. -->
         <text id="titleText"
-              top="20"
-              left="139"
+              top="22"
+              left="144"
               height="48"
               width="400"
               fontsize="24"
-              foregroundcolor="#ffffff"
-              backgroundcolor="#000000"
-              fontsmoothing="true"
-              fontFace="Segoe UI Bold"
-              onMouseOver="scrollIfNecessary(this)"
-              onMouseOut="JScript:this.scrolling=false;" />
-
-        <text id="artistText"
-              top="65"
-              left="139"
-              height="28"
-              width="400"
-              fontsize="14"
-              foregroundcolor="#797979"
+              foregroundcolor="#eeeeee"
               backgroundcolor="#000000"
               fontsmoothing="true"
               fontFace="Segoe UI Bold"
@@ -52,31 +37,33 @@
               onMouseOut="JScript:this.scrolling=false;" />
 
         <text id="albumText"
-              top="92"
-              left="139"
-              height="24"
-              width="400"
-              fontsize="12"
-              foregroundcolor="#797979"
-              backgroundcolor="#000000"
-              fontsmoothing="true"
-              fontFace="Segoe UI"
-              onMouseOver="scrollIfNecessary(this)"
-              onMouseOut="JScript:this.scrolling=false;" />
+               top="64"
+               left="144"
+               height="28"
+               width="400"
+               fontsize="14"
+               foregroundcolor="#797979"
+               backgroundcolor="#000000"
+               fontsmoothing="true"
+               fontFace="Segoe UI Bold"
+               onMouseOver="scrollIfNecessary(this)"
+               onMouseOut="JScript:this.scrolling=false;" />
 
-        <text id="bitrateAndFilesizeText"
-              top="124"
-              left="24"
-              height="15"
-              width="134"
-              fontsize="8"
-              foregroundcolor="#7e7e7e"
-              backgroundcolor="#000000"
-              fontsmoothing="true"
-              fontFace="Segoe UI" />
+        <text id="artistText"
+               top="92"
+               left="144"
+               height="24"
+               width="400"
+               fontsize="12"
+               foregroundcolor="#797979"
+               backgroundcolor="#000000"
+               fontsmoothing="true"
+               fontFace="Segoe UI"
+               onMouseOver="scrollIfNecessary(this)"
+               onMouseOut="JScript:this.scrolling=false;" />
 
         <text id="positionAndDurationText"
-              top="187"
+              top="180"
               left="18"
               height="15"
               width="134"
@@ -86,9 +73,22 @@
               fontsmoothing="true"
               fontFace="Segoe UI" />
 
+        <text id="bitrateAndFilesizeText"
+            top="198"
+            left="18"
+            height="15"
+            width="134"
+            fontsize="8"
+            foregroundcolor="#555555"
+            backgroundcolor="#1f1f1f"
+            fontsmoothing="true"
+            fontFace="Segoe UI"
+            onMouseOver="scrollIfNecessary(this)"
+            onMouseOut="JScript:this.scrolling=false;" />
+
         <!-- === Track Position Slider === -->
         <subview id="subview_positionSliderBackground"
-                 top="157"
+                 top="158"
                  left="18"
                  width="524"
                  height="16"
@@ -102,18 +102,18 @@
                     min="0"
                     max="wmpprop:player.currentMedia.duration"
                     toolTip="res://-/RT_STRING/#1809"
-                    foregroundImage="progressbar_segment.png"
+                    foregroundImage="segment.png"
                     value="wmpprop:player.controls.currentPosition"
                     onDragEnd="player.controls.currentPosition=value;"
                     onMouseUp="player.controls.currentPosition=positionSlider.value;"
-                    thumbimage="progressbar_segment.png" />
+                    thumbimage="segment.png" />
         </subview>
 
         <!-- === Album Art === -->
         <subview id="subview_AlbumArt"
                  backgroundImage="noart.png"
                  resizeBackgroundImage="true"
-                 top="20"
+                 top="24"
                  left="24"
                  width="98"
                  height="98" />
@@ -122,7 +122,7 @@
         <buttonGroup mappingImage="bg_map.png"
                      hoverImage="bg_hover.png"
                      downImage="bg_down.png"
-                     disabledImage="bg_down.png">
+                     disabledImage="bg_disabled.png">
 
             <buttonElement mappingColor="#00ff00"
                            upToolTip="res://-/RT_STRING/#1811"
@@ -151,7 +151,7 @@
                      mappingImage="bg_map.png"
                      hoverImage="bg_hover.png"
                      downImage="bg_down.png"
-                     disabledImage="bg_down.png"
+                     disabledImage="bg_disabled.png"
                      zIndex="1">
 
             <buttonElement id="shuffleButton"
@@ -177,7 +177,7 @@
                            upToolTip="res://-/RT_STRING/#1807"
                            onClick="jscript:player.settings.mute=true; jscript:muteEnabledButtonGroup.visible=true;" />
         </buttonGroup>
-    
+
         <!-- Shuffle Enabled button: Shown only when the 'shuffle' option is currently enabled. -->
         <buttonGroup id="shuffleEnabledButtonGroup"
                      mappingImage="bg_map.png"
@@ -213,29 +213,45 @@
         <!-- Mute Enabled button: Shown only when the sound output is currently muted. -->
         <buttonGroup id="muteEnabledButtonGroup"
                      mappingImage="bg_map.png"
-                     image="vol0.png"
-                     hoverImage="vol0_hover.png"
-                     downImage="vol0_down.png"
-                     disabledImage="vol0_down.png"
+                     image="mute.png"
+                     hoverImage="mute_hover.png"
+                     downImage="mute_down.png"
+                     disabledImage="mute_down.png"
                      visible="wmpenabled:player.settings.mute"
                      zIndex="4">
-                
-                <buttonElement id="muteEnabledButton"
-                               mappingColor="#6200ff"
-                               upToolTip="res://-/RT_STRING/#1808"
-                               onClick="jscript:player.settings.mute=false; jscript:muteEnabledButtonGroup.visible=false;" />
+
+            <buttonElement id="muteEnabledButton"
+                           mappingColor="#6200ff"
+                           upToolTip="res://-/RT_STRING/#1808"
+                           onClick="jscript:player.settings.mute=false; jscript:muteEnabledButtonGroup.visible=false;" />
         </buttonGroup>
-      
-      <!-- One bar of volume - shown at range 0-32 -->
-       <buttonGroup id="volOneGroup"
-                     mappingImage="bg_map.png"
-                     image="vol1.png"
-                     hoverImage="vol1_hover.png"
-                     downImage="vol1_down.png"
-                     disabledImage="vol1_down.png"
-                     visible="false"
-                     zIndex="2">
-                
+
+        <!-- No bars of volume - shown at range 0-0 -->
+        <buttonGroup id="volZeroGroup"
+                      mappingImage="bg_map.png"
+                      image="vol0.png"
+                      hoverImage="vol0_hover.png"
+                      downImage="vol0_down.png"
+                      disabledImage="vol0_down.png"
+                      visible="false"
+                      zIndex="2">
+
+            <buttonElement id="muteButton0"
+                           mappingColor="#6200ff"
+                           upToolTip="res://-/RT_STRING/#1807"
+                           onClick="jscript:player.settings.mute=true; jscript:muteEnabledButtonGroup.visible=true;" />
+        </buttonGroup>
+
+        <!-- One bar of volume - shown at range 1-32 -->
+        <buttonGroup id="volOneGroup"
+                      mappingImage="bg_map.png"
+                      image="vol1.png"
+                      hoverImage="vol1_hover.png"
+                      downImage="vol1_down.png"
+                      disabledImage="vol1_down.png"
+                      visible="false"
+                      zIndex="2">
+
             <buttonElement id="muteButton1"
                            mappingColor="#6200ff"
                            upToolTip="res://-/RT_STRING/#1807"
@@ -251,7 +267,7 @@
                      disabledImage="vol2_down.png"
                      visible="false"
                      zIndex="2">
-                
+
             <buttonElement id="muteButton2"
                            mappingColor="#6200ff"
                            upToolTip="res://-/RT_STRING/#1807"
@@ -264,8 +280,8 @@
                       top="191"
                       width="64"
                       height="8"
-                      foregroundImage="vol_segment.png"
-                      thumbImage="vol_segment.png"
+                      foregroundImage="segment.png"
+                      thumbImage="segment.png"
                       direction="horizontal"
                       slide="true"
                       upToolTip="res://-/RT_STRING/#1810"
@@ -289,6 +305,5 @@
                           height="32"
                           mappingcolor="#a6ff00" />
         </buttonGroup>
-
     </view>
 </theme>

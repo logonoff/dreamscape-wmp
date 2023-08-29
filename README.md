@@ -1,14 +1,14 @@
 # dreamscape
 Unobtrusive skin for Windows Media Player featuring album art.
 
-This skin is designed not to distract your peripheral vision on a second screen, 
-with no distracting scrolling text, animated graphics, or frequently-changing text 
-fields (aside from the display of the time index within the current track). It 
+This skin is designed not to distract your peripheral vision on a second screen,
+with no distracting scrolling text, animated graphics, or frequently-changing text
+fields (aside from the display of the time index within the current track). It
 always shows the playing album, artist, and track name for at-a-glance viewing.
 
 The skin is inspired by Groove Music.
 
-![dreamscape skin image](https://i.imgur.com/aYpk7Ie.png)
+![dreamscape skin image](https://i.imgur.com/f0HMqly.png)
 
 ## Feature List
 - Relatively small size: 560px wide, 230px high
@@ -37,6 +37,11 @@ Download the `.wmz` file from the [releases](https://github.com/logonoff/wmp-dre
   of Basic6 was the initial inspiration for the Schneider's Eleven design.  Thanks Richard!
 
 ## Changelog
+### **v1.07** - August 29, 2023
+- Added icon for muted state
+- Updated icons to [Fluent UI System Icons](aka.ms/fluentui-system-icons)
+- Moved file size and bitrate to the below the track position slider
+
 ### **v1.06** - November 10, 2020
 - Fix volume slider (didn't work at volumes below 5) and repeat button (didn't work at all)
 - Add disabledImage states (reuses down state pictures)
@@ -81,5 +86,5 @@ short time when a track finished and another track started playing.
 - Fixed a bug where the time/duration text would not fit into the available display
 area if the duration of the current track was an hour long (1:00:00) or longer.
 
-### **v1.0** - September 9, 2007 
+### **v1.0** - September 9, 2007
 - Initial release.

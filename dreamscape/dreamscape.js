@@ -33,6 +33,7 @@ function refreshAll()
 	var artistCount = player.currentMedia.getAttributeCountByType("artist", "");
 	var artistIndex;
 	var artistsString = "";
+	var albumString = player.currentMedia.getItemInfo("album");
 
 	for (artistIndex = 0; artistIndex < artistCount; artistIndex++) {
 		artistsString += player.currentMedia.getItemInfoByType("artist", "", artistIndex);
@@ -42,35 +43,29 @@ function refreshAll()
 		}
 	}
 
-	artistText.value = artistsString;
-
 	// If we couldn't find artist text, display alternate entries.
-	if (artistText.value == "") {
+	if (artistsString == "") {
 		// We have no artist; see if we can display a band instead.
 		if (player.currentMedia.getItemInfo("Band") != "") {
-			artistText.value = "[Band] " + player.currentMedia.getItemInfo("Band");
+			artistsString = "[Band] " + player.currentMedia.getItemInfo("Band");
 		}
 
 		// We have no band; see if we can display a composer instead.
 		else if (player.currentMedia.getItemInfo("WM/Composer") != "") {
-			artistText.value = "[Composer] " +  player.currentMedia.getItemInfo("WM/Composer");
-		}
-		else {
-			artistText.value = ""; // give up
+			artistsString = "[Composer] " +  player.currentMedia.getItemInfo("WM/Composer");
 		}
 	}
 
-	/*
-	** Figure out the text for the album line
-	*/
-	albumText.value = player.currentMedia.getItemInfo("album");
+	// Finally set the text.
+	albumText.value = artistsString;
+	artistText.value = albumString;
 
+	/*
+	** Figure out the text for the bitrate line below the duration information
+	*/
 	var bitrate = player.currentMedia.getItemInfo("Bitrate");
 	var fileSize = player.currentMedia.getItemInfo("FileSize");
 
-	/*
-	** Figure out the text for the bitrate line below the album art
-	*/
 	// When playing directly from a CD, the bitrate and filesize will come back as 0.
 	// Display nothing in the bitrate/filesize field in this case.
 	if (bitrate == 0 && fileSize == 0) {
@@ -181,22 +176,28 @@ function updateShuffleRepeat()
 // Change volume icon depending on current volume
 function updateVolume()
 {
-	muteEnabledButtonGroup.visible = player.settings.mute; // Might as well
+	muteEnabledButtonGroup.visible = player.settings.mute;
 
-	if (player.settings.volume > 64) {
+	if (player.settings.volume === 0) {
+		// no bars
 		volTwoGroup.visible = false;
 		volOneGroup.visible = false;
-	}
-	else if (player.settings.volume > 32 && player.settings.volume < 64) {
-		volTwoGroup.visible = true;
-		volOneGroup.visible = false;
-	}
-	else if (player.settings.volume < 32) {
+		volZeroGroup.visible = true;
+	} else if (player.settings.volume < 32) {
+		// one bar
 		volTwoGroup.visible = false;
 		volOneGroup.visible = true;
+		volZeroGroup.visible = false;
+	} else if (player.settings.volume > 32 && player.settings.volume < 64) {
+		// two bars
+		volTwoGroup.visible = true;
+		volOneGroup.visible = false;
+		volZeroGroup.visible = false;
 	}
 	else {
+		// full bars
 		volTwoGroup.visible = false;
 		volOneGroup.visible = false;
+		volZeroGroup.visible = false;
 	}
 }
