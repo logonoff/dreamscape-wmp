@@ -1,8 +1,8 @@
 <!-- thanks to Jon Schneider's skin "Schneider's Eleven" for the template -->
 <theme title="dreamscape"
        author="logonoff"
-       authorVersion="1.07"
-       copyright="2023">
+       authorVersion="1.08"
+       copyright="2024">
 
     <!-- === The Main UI === -->
     <view id="mainView"

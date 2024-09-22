@@ -8,7 +8,7 @@ always shows the playing album, artist, and track name for at-a-glance viewing.
 
 The skin is inspired by Groove Music.
 
-![dreamscape skin image](https://i.imgur.com/f0HMqly.png)
+![dreamscape skin image](https://i.imgur.com/zIbXwja.png)
 
 ## Feature List
 - Relatively small size: 560px wide, 230px high
@@ -37,6 +37,9 @@ Download the `.wmz` file from the [releases](https://github.com/logonoff/wmp-dre
   of Basic6 was the initial inspiration for the Schneider's Eleven design.  Thanks Richard!
 
 ## Changelog
+### **v1.08** - September 22, 2024
+- Fixed position of volume slider (was 1 pixel too high)
+
 ### **v1.07** - August 29, 2023
 - Added icon for muted state
 - Updated icons to [Fluent UI System Icons](aka.ms/fluentui-system-icons)
