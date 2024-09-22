@@ -277,7 +277,7 @@
         <!-- The volume slider -->
         <volumeSlider id="volumeSlider"
                       left="482"
-                      top="191"
+                      top="190"
                       width="64"
                       height="8"
                       foregroundImage="segment.png"
